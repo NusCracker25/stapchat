@@ -1,0 +1,15 @@
+{
+  "name": "stapchat",
+  "version": "0.1.0",
+  "description": "a very simple chat back-end with users and room management",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chat",
+    "socket.io"
+  ],
+  "author": "Nutscracker25",
+  "license": "MIT"
+}
