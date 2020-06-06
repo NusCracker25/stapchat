@@ -1,11 +1,15 @@
 module.exports={
     server:{
-        port: 3000
-    }
+        PORT: 3000,
+        TEST: true
+    },
     logging:{
         store: {
             db: false
         },
         folder : 'logs'
+    },
+    chatBot:{
+        BOT: 'ChatBot'
     }
 }
