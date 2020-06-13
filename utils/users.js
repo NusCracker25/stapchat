@@ -2,8 +2,16 @@
 // later on connection to user db will come here
 const users =[];
 
+const config = require('../config/config');
+
 //user joins a specific room
 function userJoin(id, username , room){
+    if(username === null){
+        username = config.chatBot.DEFAULT_USER; 
+    }
+    if(room === null){
+        room = config.chatBot.DEFAULT_ROOM;
+    }
     const user = {id, username, room};
     users.push(user);
     return user;

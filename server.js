@@ -55,6 +55,9 @@ io.on('connection', socket=>{
     // user joins a specific room
     socket.on('joinRoom' , ({username, room}) =>{
         // socket.id is used as the connection id in our memory
+        if(room === null){
+            room = config.chatBot.DEFAULT_ROOM;
+        }
         // this is different than a true user id if in db
         const user = userJoin(socket.id, username, room);
         // then user is added to the said room
@@ -84,7 +87,16 @@ io.on('connection', socket=>{
         //recuperate user from its is
         const user = getUserById(socket.id);
        // message is sent to everynody in the roome(including the emitting user)
-        io.to(user.room).emit('message',formatMessage(user.username,msg));
+       if(user != null){
+        if(user.room != null){
+            io.to(user.room).emit('message',formatMessage(user.username,msg));
+        }else {
+            io.to(config.chatBot.DEFAULT_ROOM).emit('message',formatMessage(user.username,msg));
+        }
+       }
+       else{
+           io.to(config.chatBot.DEFAULT_ROOM).emit('message',formatMessage('Anonym',msg));
+       }
     })
     //on disconnection, we let e
     socket.on('disconnect', ()=>{
@@ -105,5 +117,5 @@ io.on('connection', socket=>{
   * launches the server
   */
   server.listen(config.server.PORT, () =>{
-      logger.log('info', 'Chat server started on port '+config.PORT);
+      logger.log('info', 'Chat server started on port '+config.server.PORT);
   });
